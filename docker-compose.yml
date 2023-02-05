@@ -14,5 +14,19 @@ services:
       - 3307
     networks:
       - mysql-network
+  test-db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: nest
+      MYSQL_ROOT_PASSWORD: pwd
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pwd
+    ports:
+      - 3308:3306
+    expose:
+      - 3308
+    networks:
+      - mysql-network
 networks:
   mysql-network:

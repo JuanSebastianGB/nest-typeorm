@@ -10,8 +10,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateProfileDto } from 'src/profile/dto';
-import { ProfileService } from 'src/profile/profile.service';
+import { CreateProfileDto } from '../profile/dto';
+import { ProfileService } from '../profile/profile.service';
 import { CreateUserDto, EditUserDto } from './dto';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
