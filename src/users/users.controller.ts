@@ -10,13 +10,18 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreateProfileDto } from 'src/profile/dto';
+import { ProfileService } from 'src/profile/profile.service';
 import { CreateUserDto, EditUserDto } from './dto';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private profileService: ProfileService,
+  ) {}
   @Get()
   getUsers(): Promise<User[]> {
     return this.usersService.getUsers();
@@ -40,5 +45,13 @@ export class UsersController {
   @Delete(':id')
   deleteUserById(@Param('id', ParseIntPipe) userId: number) {
     return this.usersService.deleteUserById(userId);
+  }
+
+  @Post(':id/profile')
+  createUserProfile(
+    @Param('id', ParseIntPipe) userId: number,
+    @Body() dto: CreateProfileDto,
+  ) {
+    return this.profileService.createProfile(userId, dto);
   }
 }

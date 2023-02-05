@@ -15,12 +15,17 @@ export class UsersService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
   async getUsers() {
-    const users = await this.userRepository.find({});
+    const users = await this.userRepository.find({
+      relations: ['posts', 'profile'],
+    });
     return users;
   }
 
   async getUserById(userId: number) {
-    const user = await this.userRepository.findOne({ where: { id: userId } });
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['posts', 'profile'],
+    });
     if (!user) throw new HttpException('user not found', HttpStatus.NOT_FOUND);
     return user;
   }
